@@ -1,9 +1,14 @@
-# Unidad 1
-
-## Bitácora de proceso de aprendizaje
-
-
-## Bitácora de aplicación 
+# :floppy_disk:Bitácora de aplicación:floppy_disk:
+## Actividad 4.
 
 
-## Bitácora de reflexión
+
+# :memo:Bitácora de proceso de aprendizaje:memo:
+## Actividad 1.
+## Actividad 2.
+## Actividad 3.
+
+
+
+# :bulb:Bitácora de reflexión:bulb:
+## Actividad 5.
