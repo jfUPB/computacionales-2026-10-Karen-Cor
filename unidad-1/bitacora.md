@@ -43,10 +43,51 @@ R\\:
 
 
 ## Actividad 2.
+
+```
+@SCREEN
+D=A
+@i
+M=D
+(READKEYBOARD)
+@KBD
+D=M
+@KEYPRESSED
+D;JNE
+@i
+D=M
+@SCREEN
+D=D-A
+@READKEYBOARD
+D;JLE
+@i
+M=M-1
+A=M
+M=0
+@READKEYBOARD
+0;JMP
+
+(KEYPRESSED)
+@i
+D=M
+@KBD
+D=D-A
+@READKEYBOARD
+D;JGE
+@16
+A=M
+M=-1
+@i
+M=M+1
+@READKEYBOARD
+0;JMP
+```
+
 ## Actividad 3.
 
 
 
 # :bulb:Bitácora de reflexión:bulb:
 ## Actividad 5.
+
 
