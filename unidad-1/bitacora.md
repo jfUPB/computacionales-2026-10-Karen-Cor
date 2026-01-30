@@ -2,7 +2,7 @@
 ## Actividad 4.
 - Crea un programa que use un ciclo para sumar los números del 1 al 5 y guarde el resultado en la dirección de memoria 12.
 
-```
+``` asm 
 @12
 M=0
 @13
@@ -26,12 +26,19 @@ M=M+1
 (END)
 
 ```
+El programa debe sumar los valores del 1 al 5 utilizando un ciclo y almacenar el resultado en la dirección de memoria 12. El valor esperado es 15.
+
+Ejecución:
+Se inicializó la memoria 12 en 0 y la memoria 13 como contador en 1. El ciclo se ejecutó mientras el contador fue menor o igual a 5, sumando su valor a la memoria 12 en cada iteración.
+
+
+El ciclo fue implementado mediante etiquetas y saltos condicionales, ya que el lenguaje Hack no cuenta con estructuras de control de alto nivel.
 
 
 # :memo:Bitácora de proceso de aprendizaje:memo:
 ## Actividad 1.
 
-```
+``` asm
 @1
 D=A
 @2
@@ -67,53 +74,10 @@ Se le asigna a la posicion 16 el valor de D
 R\\:
 
 
-## Actividad 2.
-
-```
-@SCREEN
-D=A
-@i
-M=D
-(READKEYBOARD)
-@KBD
-D=M
-@KEYPRESSED
-D;JNE
-@i
-D=M
-@SCREEN
-D=D-A
-@READKEYBOARD
-D;JLE
-@i
-M=M-1
-A=M
-M=0
-@READKEYBOARD
-0;JMP
-
-(KEYPRESSED)
-@i
-D=M
-@KBD
-D=D-A
-@READKEYBOARD
-D;JGE
-@16
-A=M
-M=-1
-@i
-M=M+1
-@READKEYBOARD
-0;JMP
-```
-
-## Actividad 3.
-
-
 
 # :bulb:Bitácora de reflexión:bulb:
 ## Actividad 5.
+
 
 
 
