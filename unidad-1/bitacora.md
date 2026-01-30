@@ -2,6 +2,31 @@
 ## Actividad 4.
 - Crea un programa que use un ciclo para sumar los números del 1 al 5 y guarde el resultado en la dirección de memoria 12.
 
+```
+@12
+M=0
+@13
+M=1
+(LOOP)
+@13
+D=M
+@5
+D=D-A
+@END
+D;JGT
+@13
+D=M
+@12
+D=D+M
+M=D
+@13
+M=M+1
+@LOOP
+0;JMP
+(END)
+
+```
+
 
 # :memo:Bitácora de proceso de aprendizaje:memo:
 ## Actividad 1.
@@ -89,5 +114,6 @@ M=M+1
 
 # :bulb:Bitácora de reflexión:bulb:
 ## Actividad 5.
+
 
 
