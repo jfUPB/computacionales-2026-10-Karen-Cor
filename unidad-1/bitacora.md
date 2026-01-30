@@ -78,6 +78,61 @@ R\\:
 # :bulb:Bitácora de reflexión:bulb:
 ## Actividad 5.
 
+Describe con tus palabras las tres fases del ciclo Fetch-Decode-Execute. ¿Qué rol juega el Program Counter (PC) en este ciclo?
+
+  - R:// Fetch, aqui la CPU busca la instruccion que debe realizar. Decode, aqui la CPU analiza las intrucciones que acaba de recibir. Execute, ahora la CPU realiza la accion indicada. PC indica la direccion de la instruccion y la CPU toma esa direccion para leer la intruccion.
+
+¿Cuál es la diferencia fundamental entre una instrucción-A (que empieza con @) y una instrucción-C (que involucra D, M, A, etc.) en el lenguaje ensamblador de Hack? Da un ejemplo de cada una.
+
+   - R:// Una instruccion A carga un calor en ese registro, direccion o valor. Una instruccion C realiza una operacion y puede guardar ese resultado o decidir un salto.
+     Ejmplo:
+     D;JGT Si D>0, salta a la direccion almacenada. En A, @16 Se esta apuntando a la direccion de memoria 16 y se almacen este numero en el registro A
+
+Explica la función de los siguientes componentes del computador Hack: el registro D, el registro A y la ALU.
+
+   - R:// Como se menciona en lo anterior el registro A apunta a la direccion de memoria indicada, mientras que el registro D es usado como base de operacion, guardando datos temporales. ALU reacciona operacion aritmeticas y logicas.
+
+¿Cómo se implementa un salto condicional en Hack? Describe un ejemplo (p. ej., saltar si el valor de D es mayor que cero).
+
+  - R:// Usando una instruccion-c. D;JGT, si D>0, entonces PC=A
+  ```
+@POSITIVE
+D;JGT
+
+// código que se ejecuta si D ≤ 0
+
+(POSITIVE)
+// código que se ejecuta si D > 0
+
+```
+
+¿Cómo se implementa un loop en el computador Hack? Describe un ejemplo (p. ej., un loop que decremente un valor hasta que llegue a cero).
+
+   - R:// Los loops se realizan con una etiqueta y salto condicional, si la condicion cumple PC toma el valor de la direccion de loop, si no, sigue normalmente y el loop termina
+
+```
+@10
+D=M          // D = valor inicial
+
+(LOOP)
+D=D-1        // D = D - 1
+@10
+M=D          // guardar el nuevo valor en RAM[10]
+
+@LOOP
+D;JGT        // si D > 0, volver al inicio del loop
+
+```
+
+¿Cuál es la diferencia entre la instrucción D=M y la instrucción M=D?
+
+   - R:// Mientraas que D=M lee el valor en la memoria y lo almacena en D, M=D escribe en la memoria lo que hay en D
+
+Describe brevemente qué se necesita para leer un valor del teclado (KBD) y para “pintar” un pixel en la pantalla (SCREEN).
+
+   - R:// Leer el teclado, basta con leer el contenido de la direccion KBD. Para pintar se debe escribir un valor dentro de la memoria mapeada SCREEN (16384)
+
+
 
 
 
