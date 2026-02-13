@@ -259,4 +259,336 @@ M=-1         // dibujar línea negra
 
 # :bulb:Bitácora de reflexión:bulb:
 
+Muestra el diseño que hiciste en Bitmap Editor:
+<img width="1024" height="512" alt="image" src="https://github.com/user-attachments/assets/21e2fb74-7da7-4ed3-834a-b1a6997341a6" />
+
+
+Incluye el código en ensamblador generado por Bitmap Editor:
+``` hack
+  // put bitmap location value in R12
+	// put code return address in R13
+	@SCREEN
+	D=A
+	@R12
+	AD=D+M
+	// row 8
+	@3840 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// row 9
+	D=A // D holds previous addr
+	@32
+	AD=D+A
+	@6528 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// row 10
+	D=A // D holds previous addr
+	@32
+	AD=D+A
+	@4280 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// row 11
+	D=A // D holds previous addr
+	@32
+	AD=D+A
+	@4294 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// row 12
+	D=A // D holds previous addr
+	@32
+	AD=D+A
+	@28866 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// row 13
+	D=A // D holds previous addr
+	@32
+	AD=D+A
+	@9214 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=A-D // RAM[addr]=-val
+	// row 14
+	D=A // D holds previous addr
+	@32
+	AD=D+A
+	@31994 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=A-D // RAM[addr]=-val
+	AD=A+1 // D holds addr
+	M=1
+	// row 15
+	D=A // D holds previous addr
+	@31
+	AD=D+A
+	@8588 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	AD=A+1 // D holds addr
+	@3 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// row 16
+	D=A // D holds previous addr
+	@31
+	AD=D+A
+	@14531 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	AD=A+1 // D holds addr
+	@6 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// row 17
+	D=A // D holds previous addr
+	@31
+	AD=D+A
+	@14433 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	AD=A+1 // D holds addr
+	@4 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// row 18
+	D=A // D holds previous addr
+	@31
+	AD=D+A
+	@33 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	AD=A+1 // D holds addr
+	@12 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// row 19
+	D=A // D holds previous addr
+	@31
+	AD=D+A
+	@35 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	AD=A+1 // D holds addr
+	@8 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// row 20
+	D=A // D holds previous addr
+	@31
+	AD=D+A
+	@574 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	AD=A+1 // D holds addr
+	@16 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// row 21
+	D=A // D holds previous addr
+	@31
+	AD=D+A
+	@1824 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	AD=A+1 // D holds addr
+	@16 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// row 22
+	D=A // D holds previous addr
+	@31
+	AD=D+A
+	@1824 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	AD=A+1 // D holds addr
+	@32 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// row 23
+	D=A // D holds previous addr
+	@31
+	AD=D+A
+	@32 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	AD=A+1 // D holds addr
+	@44 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// row 24
+	D=A // D holds previous addr
+	@31
+	AD=D+A
+	@16352 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=A-D // RAM[addr]=-val
+	AD=A+1 // D holds addr
+	@108 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// row 25
+	D=A // D holds previous addr
+	@31
+	AD=D+A
+	@8128 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=A-D // RAM[addr]=-val
+	AD=A+1 // D holds addr
+	@64 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// row 26
+	D=A // D holds previous addr
+	@31
+	AD=D+A
+	@15936 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=A-D // RAM[addr]=-val
+	AD=A+1 // D holds addr
+	@64 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// row 27
+	D=A // D holds previous addr
+	@31
+	AD=D+A
+	@3840 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	AD=A+1 // D holds addr
+	@112 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// row 28
+	D=A // D holds previous addr
+	@31
+	AD=D+A
+	@4096 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=A-D // RAM[addr]=-val
+	AD=A+1 // D holds addr
+	@31 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// return
+	@R13
+	A=M
+	D;JMP
+```
+
+Incluye el programa completo en ensamblador que llama a la función generada por Bitmap Editor y que lee las teclas d y e para dibujar y borrar respectivamente el mapa de bits:
+```
+// d = dibuja, e = borra
+
+
+@SCREEN
+D=A
+@R12
+M=D
+
+(LOOP)
+@KBD
+D=M
+@100
+D=D-A
+@DRAW
+D;JEQ
+
+@KBD
+D=M
+@101
+D=D-A
+@ERASE
+D;JEQ
+
+@LOOP
+0;JMP
+
+(DRAW)
+@RET
+D=A
+@R13
+M=D
+@BITMAP
+0;JMP
+(RET)
+@LOOP
+0;JMP
+
+(ERASE)
+@SCREEN
+D=A
+@R12
+M=D
+@32
+D=A
+@R14
+M=D
+(ELOOP)
+@R14
+D=M
+@LOOP
+D;JEQ
+@R12
+A=M
+M=0
+@R12
+M=M+32
+@R14
+M=M-1
+@ELOOP
+0;JMP
+
+
+
+```
+
+
+Construye tu programa PASO A PASO mediante pruebas utilizando el simulador:
+
+
+Incluye capturas de pantalla donde muestres el resultado final de la aplicación:
+
+
+
+
+
 
