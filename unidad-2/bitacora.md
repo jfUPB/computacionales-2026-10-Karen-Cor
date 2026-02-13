@@ -37,6 +37,24 @@ M=D
 0;JMP
 
 ```
+<img width="1024" height="512" alt="image" src="https://github.com/user-attachments/assets/50daa8c1-7354-41f0-8aff-00a986d55f4c" />
+En este punto vemos que se va a apuntar a la direccion de memoria 17, numero que se guardara en el registro A, y se escribe en la direccion de memoria lo que hay en D, siendo entonces que en el registro numero 17 quedara el numero 20.
+
+
+<img width="1024" height="512" alt="image" src="https://github.com/user-attachments/assets/86d9e755-1561-4058-82b3-2d69c74167dc" />
+Siguiendo lo anterior, ahora se apuntara a la direccion de memoria 16, se lee el valor que hay en esa direccion y se almacena en D, siendo este valor 10.
+
+<img width="1024" height="512" alt="image" src="https://github.com/user-attachments/assets/0933916e-a768-47e6-ae57-4b1295d77840" />
+Aqui se observa la direccion de memoria que antes era 10, ya cambiada a 20, faltando que el 20 de la posicion 17 cambie a 10, como lo indica el problema. Por lo que se apunta a la direccion 17 de memoria, y se indica almacenar lo que hay en D (M=D), quedando ya en 10
+
+
+<img width="1543" height="777" alt="image" src="https://github.com/user-attachments/assets/a69e9207-4c1e-4271-bbff-c7d883baf7ea" />
+
+
+
+
+   -
+
 <img width="512" height="256" alt="image" src="https://github.com/user-attachments/assets/f61ce4d2-c0a7-44dd-a9e8-5bf89fe4aae1" />
 
 
@@ -230,3 +248,4 @@ M=-1         // dibujar línea negra
 
 
 # :bulb:Bitácora de reflexión:bulb:
+
