@@ -1,6 +1,6 @@
 # :floppy_disk:Bitácora de aplicación:floppy_disk:
 
-Problema 1.
+## Problema 1.
 ``` hack
 // a = 10
 @10
@@ -60,7 +60,7 @@ Final
 
 
 
-Problema 2.
+## Problema 2.
 
 ``` hack
 // arr = {10, 15, 2, 3, 50}
@@ -136,10 +136,13 @@ M=M+1
 <img width="1918" height="815" alt="image" src="https://github.com/user-attachments/assets/6b52cb05-212b-4df0-864a-400ed769daf0" />
 Se tiene un array de numeros, de 1 final x 5 columnas, quiere calcularse la suma de dichos numeros; para hacerlo en ensamblador, usando las direcciones de memoria 16, 17, 18, 19 y 20 para almacenar los numeros, y la direccion 21 para almacenar la suma, a medida que se repite el ciclo, se le suma de uno en uno a la posicion que señala el puntero, haciendo que se sume lo guardado en 16, 17, 18, 19 y 20, hasta que finalmente terminen se sumen los 5 numeros, dando 80 como resultado final
 
+
 <img width="1542" height="811" alt="image" src="https://github.com/user-attachments/assets/e0507456-c0a5-4153-b170-76f4d64af7a4" />
 Aqui se aPunta a la direccion de memoria 22, y se almacena en D, luego se apunta a 23, para luego operar D=D-M, que da -2, por lo que se sumara 1 a la posicion del numero sumado del array, para seguir con el siguiente.
 
+
 <img width="1024" height="512" alt="image" src="https://github.com/user-attachments/assets/2c02dea9-1d8f-4667-a2d0-0faa8c8b1e5e" />
+
 
 Resultado final.
 
@@ -515,7 +518,7 @@ Incluye el código en ensamblador generado por Bitmap Editor:
 ```
 
 Incluye el programa completo en ensamblador que llama a la función generada por Bitmap Editor y que lee las teclas d y e para dibujar y borrar respectivamente el mapa de bits:
-```
+``` hack
 // d = dibuja, e = borra
 
 
@@ -584,8 +587,31 @@ M=M-1
 
 Construye tu programa PASO A PASO mediante pruebas utilizando el simulador:
 
+   - Paso 1: Prueba de lectura del teclado, primero se verificó el correcto funcionamiento del teclado leyendo el valor de la dirección KBD en el CPU Emulator. Al presionar diferentes teclas se observó que el valor almacenado en KBD cambiaba de acuerdo con el código ASCII correspondiente, confirmando que la entrada del teclado funcionaba correctamente.
+
+Paso 2: Detección de la tecla d
+
+Luego se implementó la comparación del valor leído del teclado con el código ASCII de la tecla d (100). Se comprobó que al presionar esta tecla el programa realizaba el salto correspondiente a la rutina de dibujo, validando la lógica de comparación y salto condicional.
+
+Paso 3: Ejecución de la rutina de dibujo
+
+A continuación se integró la rutina generada por Bitmap Editor. Se configuraron los registros R12 (dirección base de la pantalla) y R13 (dirección de retorno) antes de ejecutar la rutina. Al ejecutar esta parte del programa se verificó que el mapa de bits se dibujaba correctamente en la pantalla.
+
+Paso 4: Detección de la tecla e
+
+Después se agregó la comparación con el código ASCII de la tecla e (101). Se comprobó que al presionar esta tecla el programa saltaba correctamente a la rutina de borrado, sin afectar el funcionamiento del resto del programa.
+
+Paso 5: Implementación de la rutina de borrado
+
+Se implementó una rutina que recorre la misma región de memoria de la pantalla utilizada para dibujar el bitmap y escribe ceros en cada fila. Se utilizó un contador para borrar todas las filas necesarias, verificando visualmente en el Screen Emulator que el dibujo desaparecía por completo.
+
+Paso 6: Integración y prueba final
+
+Finalmente se integraron todas las partes en un ciclo infinito. Se comprobó el funcionamiento completo del programa observando que al presionar la tecla d el bitmap aparece en pantalla y al presionar la tecla e el bitmap se borra correctamente, cumpliendo con los requisitos del ejercicio.
+
 
 Incluye capturas de pantalla donde muestres el resultado final de la aplicación:
+
 
 
 
