@@ -1,5 +1,6 @@
 # :floppy_disk:Bitácora de aplicación:floppy_disk:
 
+Problema 1.
 ``` hack
 // a = 10
 @10
@@ -48,17 +49,18 @@ Siguiendo lo anterior, ahora se apuntara a la direccion de memoria 16, se lee el
 Aqui se observa la direccion de memoria que antes era 10, ya cambiada a 20, faltando que el 20 de la posicion 17 cambie a 10, como lo indica el problema. Por lo que se apunta a la direccion 17 de memoria, y se indica almacenar lo que hay en D (M=D), quedando ya en 10
 
 
-<img width="1543" height="777" alt="image" src="https://github.com/user-attachments/assets/a69e9207-4c1e-4271-bbff-c7d883baf7ea" />
+<img width="1024" height="512" alt="image" src="https://github.com/user-attachments/assets/a69e9207-4c1e-4271-bbff-c7d883baf7ea" />
 
 
 
 
-   -
+Final
 
-<img width="512" height="256" alt="image" src="https://github.com/user-attachments/assets/f61ce4d2-c0a7-44dd-a9e8-5bf89fe4aae1" />
+<img width="1024" height="512" alt="image" src="https://github.com/user-attachments/assets/f61ce4d2-c0a7-44dd-a9e8-5bf89fe4aae1" />
 
 
 
+Problema 2.
 
 ``` hack
 // arr = {10, 15, 2, 3, 50}
@@ -131,7 +133,15 @@ M=M+1
 0;JMP
 
 ```
-<img width="512" height="256" alt="image" src="https://github.com/user-attachments/assets/2c02dea9-1d8f-4667-a2d0-0faa8c8b1e5e" />
+<img width="1918" height="815" alt="image" src="https://github.com/user-attachments/assets/6b52cb05-212b-4df0-864a-400ed769daf0" />
+Se tiene un array de numeros, de 1 final x 5 columnas, quiere calcularse la suma de dichos numeros; para hacerlo en ensamblador, usando las direcciones de memoria 16, 17, 18, 19 y 20 para almacenar los numeros, y la direccion 21 para almacenar la suma, a medida que se repite el ciclo, se le suma de uno en uno a la posicion que señala el puntero, haciendo que se sume lo guardado en 16, 17, 18, 19 y 20, hasta que finalmente terminen se sumen los 5 numeros, dando 80 como resultado final
+
+<img width="1542" height="811" alt="image" src="https://github.com/user-attachments/assets/e0507456-c0a5-4153-b170-76f4d64af7a4" />
+Aqui se aPunta a la direccion de memoria 22, y se almacena en D, luego se apunta a 23, para luego operar D=D-M, que da -2, por lo que se sumara 1 a la posicion del numero sumado del array, para seguir con el siguiente.
+
+<img width="1024" height="512" alt="image" src="https://github.com/user-attachments/assets/2c02dea9-1d8f-4667-a2d0-0faa8c8b1e5e" />
+
+Resultado final.
 
 
 
@@ -248,4 +258,5 @@ M=-1         // dibujar línea negra
 
 
 # :bulb:Bitácora de reflexión:bulb:
+
 
