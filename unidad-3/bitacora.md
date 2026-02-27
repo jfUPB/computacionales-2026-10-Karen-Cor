@@ -75,5 +75,45 @@ int main() {
 ```
 
 
-## Bitácora de reflexión
+# :bulb:Bitácora de reflexión:bulb:
 
+## Parte 1:
+
+- Explica con tus propias palabras qué es el stack y qué es el heap en C++.
+
+R//: El stack es una memoria automatica por asi decirlo, que en cuanto se sale de la estancia del objeto se libera por si misma, mientras que el heap es una memoria dinamica, que debe usar un destructor que libere la memoria.
+
+- Describe las tres formas de pasar parámetros a una función en C++ (valor, referencia y puntero). Para cada una, explica qué sucede en memoria y cuándo usarías cada método.
+
+R//: Valor: Se crea una copia del objeto y dicha copia vive en el stack, y es la que se modifica, dejando la original, una vez se sale de la estancia el objeto se destruye y la memoria se libera. Referencia: Aqui no se crea una copia como tal, sino que se usa mas bien un alias referenciando el mismo objeto y vive en el stack, apuntan a la misma direccion. Puntero: Se pasa la direccion de memoria, la funcion recibe un puntero, que apunta al dato original.
+
+- ¿Qué diferencia hay entre una variable local, una variable global y una variable local estática? ¿En qué segmento del mapa de memoria se almacena cada una?
+
+R//: La variable local solo existe dentro de la funcion, y cuando la funcion termina se destruye. La variable global existe durante todo el programa, por lo que es visible desde cualquier parte. Y una variable local estatica es visible solo en la funcion, pero, a diferencia de la local, no se destruye al terminar dicha funcion. 
+
+- Explica qué es un objeto en C++ desde la perspectiva de memoria. ¿Dónde se almacenan los miembros de instancia y dónde los miembros estáticos?
+
+R//: Podria decirse que es un tipo de memoria que sigue a la clase indicada. Los miembros de la estancia se almacenan en la memoria stack
+
+## Parte 2:
+
+- Análisis de problemas: identifica al menos dos problemas serios en este código relacionados con el manejo de memoria. Explica por qué cada uno es problemático.
+
+- Predicción de comportamiento: ¿Qué valor mostrará totalEnemigos después de ejecutar el programa? ¿Por qué ocurre esto?
+
+- Propuesta de solución: escribe una versión corregida de la clase Enemigo que solucione los problemas identificados. Explica brevemente cada cambio que hiciste.
+
+
+## Parte 3:
+
+- De todos los conceptos que exploraste en esta unidad (stack vs heap, paso de parámetros, ciclo de vida de objetos, etc.), ¿Cuál consideras que es el más crítico para evitar errores en programas reales? ¿Por qué?
+
+R//: La verdad es que los conceptos que tuve mas presentes mientras trabajaba esta unidad fue el stack vs heap, ya que una vez que las entendemos vemos que no es algo que este a la vista directamente en el codigo, pero que siempre estamos implementando y tomando en cuenta mientras avanzamos en nuestro trabajo, es importante conocer la diferencia y con eso las especificaciones que se usan en cada una.
+
+- ¿Cómo cambió tu comprensión sobre lo que realmente es un “objeto” después de comparar C++ con C#? ¿Qué implicaciones prácticas tiene esta diferencia?
+
+R//: Mientras que en c# el objeto vive en heap(sin preocuparnos por liberarlo) y es referenciado por una referencia, en c++ el objeto puede vivir en stack, heap, dentro de otro objeto o en una memoria dinamica, siendo cada uno distinto, cambiara el como trabajemos nuestro codigo, segun las necesidades que presentemos.
+
+- Si tuvieras que explicar a un compañero de semestres anteriores por qué es importante entender la gestión de memoria en programación, ¿Qué le dirías en máximo 3 oraciones?
+
+R//: Permite alcanzar un entendimiento completo de nuestro codigo, como funcionan/dirigen los datos/variables que estamos cargando.
