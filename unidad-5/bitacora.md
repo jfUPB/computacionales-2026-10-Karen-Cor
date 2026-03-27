@@ -1,5 +1,353 @@
 # :floppy_disk:Bitácora de aplicación:floppy_disk:
 # Actividad 6
+
+Codigo fuente modificado
+
+<details>
+  <summary>ofApp.cpp</summary>
+
+```cpp
+#include "ofApp.h"
+
+// --------------------------------------------------------------
+void ofApp::setup() {
+	ofSetFrameRate(60);
+	ofBackground(0);
+}
+
+// --------------------------------------------------------------
+void ofApp::update() {
+	float dt = ofGetLastFrameTime();
+
+	for (int i = 0; i < particles.size(); i++) {
+		particles[i]->update(dt);
+	}
+
+	for (int i = particles.size() - 1; i >= 0; i--) {
+		if (particles[i]->shouldExplode()) {
+			int explosionType = (int)ofRandom(4);
+			int numParticles = (int)ofRandom(20, 30);
+			for (int j = 0; j < numParticles; j++) {
+				if (explosionType == 0) {
+ 					particles.push_back(new CircularExplosion(
+						particles[i]->getPosition(), particles[i]->getColor()));
+				} else if (explosionType == 1) {
+					particles.push_back(new RandomExplosion(
+						particles[i]->getPosition(), particles[i]->getColor()));
+				} else if (explosionType == 2) {
+					particles.push_back(new StarExplosion(
+						particles[i]->getPosition(), particles[i]->getColor()));
+				} else {
+					particles.push_back(new RingExplosion(
+						particles[i]->getPosition(),
+						particles[i]->getColor(),
+						j, numParticles));
+				}
+			}
+			delete particles[i];
+			particles.erase(particles.begin() + i);
+		} else if (particles[i]->isDead()) {
+			delete particles[i];
+			particles.erase(particles.begin() + i);
+		}
+	}
+}
+
+// --------------------------------------------------------------
+void ofApp::draw() {
+	for (int i = 0; i < particles.size(); i++) {
+		particles[i]->draw();
+	}
+}
+
+// --------------------------------------------------------------
+void ofApp::createRisingParticle() {
+	float minX = ofGetWidth() * 0.35f;
+	float maxX = ofGetWidth() * 0.65f;
+	float spawnX = ofRandom(minX, maxX);
+	glm::vec2 pos(spawnX, ofGetHeight());
+	glm::vec2 target(ofGetWidth() / 2.0f + ofRandom(-300, 300),
+		ofGetHeight() * 0.10f + ofRandom(-30, 30));
+	glm::vec2 direction = glm::normalize(target - pos);
+	glm::vec2 vel = direction * ofRandom(250, 350);
+	ofColor col;
+	col.setHsb(ofRandom(255), 220, 255);
+	float lifetime = ofRandom(1.5f, 3.5f);
+
+	int type = (int)ofRandom(3);
+	if (type == 0) {
+		particles.push_back(new RisingParticle(pos, vel, col, lifetime));
+	} else if (type == 1) {
+		particles.push_back(new SpiralParticle(pos, vel, col, lifetime));
+	} else {
+		particles.push_back(new GravityParticle(pos, vel, col, lifetime));
+	}
+}
+
+// --------------------------------------------------------------
+void ofApp::mousePressed(int x, int y, int button) {
+	createRisingParticle();
+}
+
+// --------------------------------------------------------------
+void ofApp::keyPressed(int key) {
+	if (key == ' ') {
+		for (int i = 0; i < 1000; i++) {
+			createRisingParticle();
+		}
+	}
+	if (key == 's') {
+		ofSaveScreen("screenshot_" + ofToString(ofGetFrameNum()) + ".png");
+	}
+}
+
+// --------------------------------------------------------------
+ofApp::~ofApp() {
+	for (int i = 0; i < particles.size(); i++) {
+		delete particles[i];
+	}
+	particles.clear();
+}
+
+```
+
+</details>
+
+<details>
+  <summary>ofApp.h</summary>
+
+```h
+#pragma once
+#include "ofMain.h"
+#include <vector>
+
+class Particle {
+public:
+	virtual ~Particle() { }
+	virtual void update(float dt) = 0;
+	virtual void draw() = 0;
+	virtual bool isDead() const = 0;
+	virtual bool shouldExplode() const { return false; }
+	virtual glm::vec2 getPosition() const { return glm::vec2(0, 0); }
+	virtual ofColor getColor() const { return ofColor(255); }
+};
+
+class RisingParticle : public Particle {
+protected:
+	glm::vec2 position;
+	glm::vec2 velocity;
+	ofColor color;
+	float lifetime;
+	float age;
+	bool exploded;
+
+public:
+	RisingParticle(const glm::vec2 & pos, const glm::vec2 & vel,
+		const ofColor & col, float life)
+		: position(pos)
+		, velocity(vel)
+		, color(col)
+		, lifetime(life)
+		, age(0)
+		, exploded(false) { }
+
+	void update(float dt) override {
+		position += velocity * dt;
+		age += dt;
+		velocity.y += 9.8f * dt * 8;
+		float explosionThreshold = ofGetHeight() * 0.15f + ofRandom(-30, 30);
+		if (position.y <= explosionThreshold || age >= lifetime) {
+			exploded = true;
+		}
+	}
+
+	void draw() override {
+		ofSetColor(color);
+		ofDrawCircle(position, 10);
+	}
+
+	bool isDead() const override { return exploded; }
+	bool shouldExplode() const override { return exploded; }
+	glm::vec2 getPosition() const override { return position; }
+	ofColor getColor() const override { return color; }
+};
+
+class ExplosionParticle : public Particle {
+protected:
+	glm::vec2 position;
+	glm::vec2 velocity;
+	ofColor color;
+	float age;
+	float lifetime;
+	float size;
+
+public:
+	ExplosionParticle(const glm::vec2 & pos, const glm::vec2 & vel,
+		const ofColor & col, float life, float sz)
+		: position(pos)
+		, velocity(vel)
+		, color(col)
+		, age(0)
+		, lifetime(life)
+		, size(sz) { }
+
+	void update(float dt) override {
+		position += velocity * dt;
+		age += dt;
+		float alpha = ofMap(age, 0, lifetime, 255, 0, true);
+		color.a = alpha;
+	}
+
+	bool isDead() const override { return age >= lifetime; }
+};
+
+
+class CircularExplosion : public ExplosionParticle {
+public:
+	CircularExplosion(const glm::vec2 & pos, const ofColor & col)
+		: ExplosionParticle(pos, glm::vec2(0, 0), col, 1.2f, ofRandom(16, 32)) {
+		float angle = ofRandom(0, TWO_PI);
+		float speed = ofRandom(80, 200);
+		velocity = glm::vec2(cos(angle), sin(angle)) * speed;
+	}
+
+	void draw() override {
+		ofSetColor(color);
+		ofDrawCircle(position, size);
+	}
+};
+
+
+class RandomExplosion : public ExplosionParticle {
+public:
+	RandomExplosion(const glm::vec2 & pos, const ofColor & col)
+		: ExplosionParticle(pos, glm::vec2(0, 0), col, 1.5f, ofRandom(16, 32)) {
+		velocity = glm::vec2(ofRandom(-200, 200), ofRandom(-200, 200));
+	}
+
+	void draw() override {
+		ofSetColor(color);
+		ofDrawRectangle(position.x, position.y, size, size);
+	}
+};
+
+
+class StarExplosion : public ExplosionParticle {
+public:
+	StarExplosion(const glm::vec2 & pos, const ofColor & col)
+		: ExplosionParticle(pos, glm::vec2(0, 0), col, 1.3f, ofRandom(20, 40)) {
+		float angle = ofRandom(0, TWO_PI);
+		float speed = ofRandom(90, 180);
+		velocity = glm::vec2(cos(angle), sin(angle)) * speed;
+	}
+
+	void draw() override {
+		ofSetColor(color);
+		int rays = 5;
+		float outerRadius = size;
+		float innerRadius = size * 0.5f;
+		ofPushMatrix();
+		ofTranslate(position);
+		for (int i = 0; i < rays; i++) {
+			float theta = ofMap(i, 0, rays, 0, TWO_PI);
+			float xOuter = cos(theta) * outerRadius;
+			float yOuter = sin(theta) * outerRadius;
+			float xInner = cos(theta + PI / rays) * innerRadius;
+			float yInner = sin(theta + PI / rays) * innerRadius;
+			ofDrawLine(0, 0, xOuter, yOuter);
+			ofDrawLine(xOuter, yOuter, xInner, yInner);
+		}
+		ofPopMatrix();
+	}
+};
+
+
+class ofApp : public ofBaseApp {
+public:
+	void setup();
+	void update();
+	void draw();
+	void mousePressed(int x, int y, int button);
+	void keyPressed(int key);
+
+	std::vector<Particle *> particles;
+	~ofApp();
+
+private:
+	void createRisingParticle();
+
+
+	class SpiralParticle : public RisingParticle
+	{
+	private:
+		float spiralAngle;
+		float spiralRadius;
+
+	public:
+		SpiralParticle(const glm::vec2 & pos, const glm::vec2 & vel,
+			const ofColor & col, float life)
+			: RisingParticle(pos, vel, col, life)
+			, spiralAngle(0)
+			, spiralRadius(30.0f) { }
+
+		void update(float dt) override {
+			RisingParticle::update(dt);
+			spiralAngle += dt * 5.0f; 
+			position.x += cos(spiralAngle) * spiralRadius * dt; 
+		}
+
+		void draw() override {
+			ofSetColor(color);
+			ofDrawCircle(position, 8); 
+		}
+	};
+
+
+	class GravityParticle : public RisingParticle {
+	public:
+		GravityParticle(const glm::vec2 & pos, const glm::vec2 & vel,
+			const ofColor & col, float life)
+			: RisingParticle(pos, vel, col, life) { }
+
+		void update(float dt) override
+		{
+			position += velocity * dt;
+			age += dt;
+			velocity.y += 9.8f * dt * 20;
+			if (age >= lifetime)
+			{
+				exploded = true;
+			}
+		}
+
+		void draw() override {
+			ofSetColor(color);
+			ofDrawRectangle(position.x - 5, position.y - 5, 10, 10);
+		}
+	};
+
+
+	class RingExplosion : public ExplosionParticle {
+	public:
+		RingExplosion(const glm::vec2 & pos, const ofColor & col, int index, int total)
+			: ExplosionParticle(pos, glm::vec2(0, 0), col, 1.8f, ofRandom(8, 14))
+		{
+			float angle = (TWO_PI / total) * index;
+			float speed = ofRandom(100, 150);
+			velocity = glm::vec2(cos(angle), sin(angle)) * speed;
+		}
+
+		void draw() override {
+			ofSetColor(color);
+			ofDrawCircle(position, size * 0.7f);
+		}
+	};
+};
+
+```
+
+</details>
+
 ## Evidencia 1 — Herencia en memoria
 
 Demuestra con el depurador que comprendes cómo la herencia organiza los datos en memoria para uno de tus nuevos tipos de partícula. Debes poder mostrar la jerarquía completa de objetos anidados en el objeto inspeccionado y explicar qué campo pertenece a qué clase de la jerarquía.
@@ -61,6 +409,18 @@ Esto demuestra el encapsulamiento, ya que estos atributos no son modificados des
 ## Evidencia 5 — Ciclo de vida completo de tu partícula
 
 Demuestra el ciclo de vida completo de uno de tus nuevos tipos: desde su creación (el objeto entra al vector), su estado durante update, hasta su eliminación (el objeto se retira del vector y se libera la memoria). Explica qué observas en cada etapa.
+
+<img width="1000"  src="https://github.com/user-attachments/assets/5087c17e-f7e1-4131-9abf-ad720994c350" />
+
+Detuve la ejecución en la línea 72 de ofApp.cpp, dentro de createRisingParticle(), justo después del particles.push_back(new SpiralParticle(...)). Elegí este punto porque el objeto acaba de ser instanciado en el heap y empujado al vector, por lo que se puede observar su estado inicial completo antes de que el programa lo modifique.
+
+En el depurador se observa el objeto [24] de tipo SpiralParticle recién agregado al vector. Al expandirlo se ve la jerarquía completa: SpiralParticle → RisingParticle → Particle. Los valores confirman que es un objeto recién nacido: age = 0, exploded = false, spiralAngle = 0, spiralRadius = 30. El campo lifetime = 1.55 indica cuántos segundos tiene permitido vivir.
+
+<img width="1000" src="https://github.com/user-attachments/assets/97957a77-7817-41f5-bff0-7bd898e45db4" />
+
+Detuve la ejecución en la línea 177 de ofApp.h, dentro del update() de SpiralParticle, justo antes de aplicar el movimiento espiral. Elegí este punto porque es donde el objeto está activamente modificando su estado en cada frame.
+
+El depurador muestra el objeto this de tipo SpiralParticle, y al expandirlo se ve la data heredada de RisingParticle anidada dentro. Los valores confirman que el objeto está vivo y evolucionando: age = 0.017 (un frame ha pasado), spiralAngle = 0.086 (ya no es 0, está girando), y position.x = 504 (se ha movido desde su posición inicial). exploded = false confirma que sigue activo.
 
 ## Evidencia 6 — Sin fugas de memoria
 
