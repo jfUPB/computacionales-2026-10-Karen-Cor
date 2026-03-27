@@ -28,13 +28,19 @@ Esto demuestra comprensión del polimorfismo porque permite ver que no todas las
 
 Demuestra que el polimorfismo en tiempo de ejecución funciona para tu nuevo tipo: el despacho dinámico ejecuta tu versión del método virtual cuando corresponde. Debes mostrar que el programa tomó el camino correcto y no el de otro tipo.
 
+<img width="1355" height="822" alt="image" src="https://github.com/user-attachments/assets/20512519-2c47-4fe1-b529-c644391419c1" />
 
+¿Dónde detuve la ejecución y por qué?
 
-Detuve la ejecución en el bucle donde se llama a particles[i]->update(dt), porque es el punto donde se aplica el mismo método a todos los objetos, sin importar su tipo real.
+En el push_back de la explosión dentro de update(), justo cuando el objeto acaba de ser creado. Ese punto me permite ver el objeto completo en memoria antes de que el programa continúe modificándolo.
 
-En el depurador se observa que el vector particles almacena punteros de tipo Particle*, pero cada elemento puede ser en realidad un RisingParticle, SpiralParticle o GravityParticle. Al avanzar paso a paso, se ve que el flujo del programa entra a diferentes implementaciones de update() dependiendo del objeto.
+¿Qué se observa en la imagen?
 
-Esto demuestra el polimorfismo dinámico, ya que aunque todos los objetos se manejan como si fueran del mismo tipo base, cada uno ejecuta su propio comportamiento. La decisión de qué función se ejecuta ocurre en tiempo de ejecución, no en compilación.
+El objeto RingExplosion expandido mostrando tres niveles de jerarquía apilados: RingExplosion contiene a ExplosionParticle, que contiene a Particle, que contiene el _vfptr. Debajo de eso están los campos concretos: position, velocity, color, age, lifetime — todos viviendo físicamente dentro del mismo objeto.
+
+¿Cómo demuestra comprensión?
+
+La herencia no es abstracta — se ve literalmente en memoria. El objeto RingExplosion no es solo RingExplosion, internamente carga todos los datos de sus clases padre apilados. Eso explica por qué puede usar position o age sin haberlos declarado él mismo: los heredó y están físicamente dentro de él.
 
 ## Evidencia 4 — Encapsulamiento en el contexto de herencia
 
