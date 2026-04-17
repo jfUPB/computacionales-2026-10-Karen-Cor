@@ -402,6 +402,26 @@ Cambia el tipo del objeto apuntado por state, por lo tanto las funciones virtual
 Evidencia 3
 
 <img width="1353" height="868" alt="image" src="https://github.com/user-attachments/assets/b5429539-90b8-4334-96df-88fb4972b061" />
+<img width="1349" height="870" alt="image" src="https://github.com/user-attachments/assets/ed5a4bd5-a7c6-4414-865e-0d4e4bd93986" />
+<img width="1351" height="860" alt="image" src="https://github.com/user-attachments/assets/5c2e2cab-c716-4cb4-bd38-bc9684b7d2cb" />
+<img width="1355" height="869" alt="image" src="https://github.com/user-attachments/assets/4e1938b2-1ab8-4ce8-8109-90bfb2cc3254" />
+
+Se colocaron breakpoints en: keyPressed(), notify(), onNotify() y setState(), ya que permiten observar todo el recorrido del evento desde la entrada del usuario hasta el cambio interno de comportamiento.
+- Explicación:
+Al presionar la tecla c, keyPressed() ejecuta:
+notify("chaos")
+Luego notify() recorre el vector de observers y envía el evento a cada partícula.
+Después Particle::onNotify() recibe:
+event = "chaos"
+y finalmente se ejecuta:
+setState(new ChaosState())
+- Justificación:
+Esto demuestra la cadena entre patrones:
+Observer distribuye el evento a todas las partículas.
+State cambia el comportamiento interno reemplazando el objeto estado.
+
+
+
 
 
 
