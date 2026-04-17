@@ -382,7 +382,30 @@ Evidencia 1
 Se ubica el breakpoint en la linea 177, dentro de factory, ya que alli se toma la decision de que objeto crear, al detener la aplicacion ahi vemos en las variables locales el tipo "commet", mostrando que se esta siguiendo correctamente la logica de creacion y, al avanzar cuatro lineas mas vemos como la particula obtiene valores de size, color y velocity dentro de los parametros especificados. 
 
 
+
 Evidencia 2
+
+<img width="1351" height="860" alt="image" src="https://github.com/user-attachments/assets/8bf5eece-fc6a-4a9c-ab0b-5c18029a52d0" />
+<img width="1355" height="867" alt="image" src="https://github.com/user-attachments/assets/b7521f76-aaa8-4e48-b31d-19e774c505bc" />
+<img width="1349" height="863" alt="image" src="https://github.com/user-attachments/assets/64ee38bf-fe53-4307-8521-382b67cd2728" />
+<img width="1350" height="865" alt="image" src="https://github.com/user-attachments/assets/17d82ea1-f4d0-46d4-8246-222ebf5a435c" />
+
+Se eligió keyPressed() y setState() porque permiten observar cuándo se activa cada evento y qué objeto de estado nuevo recibe la partícula.
+- Explicacion:
+Al presionar n, setState() recibe un objeto NormalState*.
+Al presionar c, setState() recibe un objeto ChaosState*.
+- Justificacion:
+Cambia el tipo del objeto apuntado por state, por lo tanto las funciones virtuales como update() usarán otra implementación. Esto muestra polimorfismo y el funcionamiento del patrón State: el comportamiento cambia reemplazando el objeto estado, no modificando la clase Particle.
+
+
+
+Evidencia 3
+
+<img width="1353" height="868" alt="image" src="https://github.com/user-attachments/assets/b5429539-90b8-4334-96df-88fb4972b061" />
+
+
+
+
 
 
 
