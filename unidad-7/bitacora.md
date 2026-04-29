@@ -2,8 +2,6 @@
 # Actividad 6.
 
 ## Fase 1
-<img width="254" height="254" alt="Grabacindepantalla2026-04-29104651-ezgif com-video-to-gif-converter" src="https://github.com/user-attachments/assets/a09d9636-4b97-4233-85cc-1c012a83df0c" />
-
 
 <details>
   <summary>triangle.cpp</summary>
@@ -221,3 +219,71 @@ int main()
 ```
 
 </details>
+
+(Contiene código C++ + Vertex Shader + Fragment Shader)
+
+## Fase 2
+
+- Evidencia #1
+
+<img width="1024" height="512" alt="image" src="https://github.com/user-attachments/assets/5f3f9fa1-09a5-4bb8-8883-4441f14f7a4c" />
+-
+<img width="1024" height="512" alt="image" src="https://github.com/user-attachments/assets/2ecc1e3e-9c5f-405b-a3b4-2bc9130b9093" />
+
+Explicación: Primero se usa glfwInit() para iniciar GLFW, para después crear la ventana con glfwCreateWindow(). Luego con glfwMakeContextCurrent(mainWindow) esa ventana queda con el contexto OpenGL activo. luego de eso se usa gladLoadGLLoader(...), que sirve para cargar las funciones de OpenGL que voy a usar en el programa.
+
+Justificacion: GLFW tiene que ir primero porque es el que crea la ventana y prepara el contexto. Sin ese contexto GLAD no tendría de dónde cargar las funciones de OpenGL, por eso ese orden es necesario.
+
+
+
+- Evidencia #2
+
+<img width="1024" height="512" alt="image" src="https://github.com/user-attachments/assets/6745756f-65fe-4a2e-84d7-fcad73a815d6" />
+-
+<img width="1024" height="512" alt="image" src="https://github.com/user-attachments/assets/6f825f09-72f7-4f6f-9956-e76cc55e52a1" />
+
+Explicacion: Primero el arreglo vertices[] guarda las posiciones de los 3 puntos del triángulo. Después con glBufferData esos datos se mandan al buffer de OpenGL. Luego con glVertexAttribPointer se le dice a OpenGL cómo leer esos datos: en grupos de 3 números (x, y, z) y usarlos en el atributo 0
+
+Justificación: El shader no lee directamente el arreglo, primero se deben guardar los datos en un buffer y después indicar cómo usarlos. Así OpenGL sabe de dónde sacar la posición de cada vértice
+
+
+
+- Evidencia #3
+
+<img width="636" height="500" alt="Grabacindepantalla2026-04-29104651-ezgif com-video-to-gif-converter" src="https://github.com/user-attachments/assets/da1f665a-4bc2-411d-afea-997686ec018a" />
+
+-
+<img width="1024" height="512" alt="image" src="https://github.com/user-attachments/assets/fdebc057-31ee-4506-9523-fa610b984c03" />
+
+Explicación: En el programa usé glUniform2f(...) para mover el triángulo y glUniform4f(...) para cambiar su color; el arreglo vertices[] nunca cambia, siempre tiene los mismos puntos. Lo que cambia son los valores que se mandan al shader en cada frame
+
+Justificación: Esto es posible porque los uniforms son valores externos que el shader recibe antes de dibujar, cambiando el comportamiento del shader sin reescribir los valores originales
+
+
+
+- Evidencia #4
+
+<img width="1024" height="512" alt="image" src="https://github.com/user-attachments/assets/d1e20372-5ee8-4cc4-a152-d57c29a51725" />
+
+Explicación:
+Cambié el valor del offset a 2.0 en X
+
+Esperaba que el triángulo se moviera demasiado hacia la derecha
+
+Eso fue lo que pasó: salió de la zona visible y dejó de verse en pantalla
+
+Justificación: OpenGL dibuja dentro del rango visible normal (NDC), que normalmente va entre -1 y 1. Como moví el triángulo más allá de ese rango, quedó fuera de la vista
+
+Conclusión: Los uniforms pueden cambiar mucho el resultado visual. Si se usan valores exagerados, el objeto puede salir de pantalla aunque el VBO esté bien
+
+
+
+- Evidencia #5
+
+¿por qué usé uniforms para el movimiento y el color del triángulo?
+
+<img width="1024" height="512" alt="image" src="https://github.com/user-attachments/assets/aa887aa1-f182-4b4f-8fff-3e9dd61633cf" />
+
+Explicación: Decidí usar uniforms porque el movimiento y el color eran valores generales para todo el triángulo en cada frame, no era necesario mandar un color diferente para cada vértice ni una posición distinta por punto. Por eso era mejor usar un uniform y cambiarlo desde el codigo.
+
+Justificación: Los atributos son una opcion mas factible cuando cada vértice necesita datos propios, como posiciones, normales o colores distintos. En este caso todo el triángulo se mueve junto y cambia como una sola figura, así que uniform era una opción correcta y sencilla
