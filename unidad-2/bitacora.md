@@ -1,9 +1,620 @@
-# Unidad 2
+# :floppy_disk:Bitácora de aplicación:floppy_disk:
 
-## Bitácora de proceso de aprendizaje
+## Problema 1.
+``` hack
+// a = 10
+@10
+D=A
+@16
+M=D
+
+// b = 20
+@20
+D=A
+@17
+M=D
+
+// tmp = a
+@16
+D=M
+@18
+M=D
+
+// a = b
+@17
+D=M
+@16
+M=D
+
+// b = tmp
+@18
+D=M
+@17
+M=D
+
+// loop infinito (fin del programa)
+(END)
+@END
+0;JMP
+
+```
+<img width="1024" height="512" alt="image" src="https://github.com/user-attachments/assets/50daa8c1-7354-41f0-8aff-00a986d55f4c" />
+En este punto vemos que se va a apuntar a la direccion de memoria 17, numero que se guardara en el registro A, y se escribe en la direccion de memoria lo que hay en D, siendo entonces que en el registro numero 17 quedara el numero 20.
 
 
-## Bitácora de aplicación 
+<img width="1024" height="512" alt="image" src="https://github.com/user-attachments/assets/86d9e755-1561-4058-82b3-2d69c74167dc" />
+Siguiendo lo anterior, ahora se apuntara a la direccion de memoria 16, se lee el valor que hay en esa direccion y se almacena en D, siendo este valor 10.
+
+<img width="1024" height="512" alt="image" src="https://github.com/user-attachments/assets/0933916e-a768-47e6-ae57-4b1295d77840" />
+Aqui se observa la direccion de memoria que antes era 10, ya cambiada a 20, faltando que el 20 de la posicion 17 cambie a 10, como lo indica el problema. Por lo que se apunta a la direccion 17 de memoria, y se indica almacenar lo que hay en D (M=D), quedando ya en 10
 
 
-## Bitácora de reflexión
+<img width="1024" height="512" alt="image" src="https://github.com/user-attachments/assets/a69e9207-4c1e-4271-bbff-c7d883baf7ea" />
+
+
+
+
+Final
+
+<img width="1024" height="512" alt="image" src="https://github.com/user-attachments/assets/f61ce4d2-c0a7-44dd-a9e8-5bf89fe4aae1" />
+
+
+
+## Problema 2.
+
+``` hack
+// arr = {10, 15, 2, 3, 50}
+@10
+D=A
+@16
+M=D
+
+@15
+D=A
+@17
+M=D
+
+@2
+D=A
+@18
+M=D
+
+@3
+D=A
+@19
+M=D
+
+@50
+D=A
+@20
+M=D
+
+// sum = 0
+@21
+M=0
+
+// i = 0
+@22
+M=0
+
+// arrSize = 5
+@5
+D=A
+@23
+M=D
+
+// LOOP
+(LOOP)
+@22
+D=M
+@23
+D=D-M
+@END
+D;JGE
+
+// sum = sum + arr[i]
+@22
+D=M
+@16
+A=D+A
+D=M
+@21
+M=D+M
+
+// i++
+@22
+M=M+1
+
+@LOOP
+0;JMP
+
+(END)
+@END
+0;JMP
+
+```
+<img width="1918" height="815" alt="image" src="https://github.com/user-attachments/assets/6b52cb05-212b-4df0-864a-400ed769daf0" />
+Se tiene un array de numeros, de 1 final x 5 columnas, quiere calcularse la suma de dichos numeros; para hacerlo en ensamblador, usando las direcciones de memoria 16, 17, 18, 19 y 20 para almacenar los numeros, y la direccion 21 para almacenar la suma, a medida que se repite el ciclo, se le suma de uno en uno a la posicion que señala el puntero, haciendo que se sume lo guardado en 16, 17, 18, 19 y 20, hasta que finalmente terminen se sumen los 5 numeros, dando 80 como resultado final
+
+
+<img width="1542" height="811" alt="image" src="https://github.com/user-attachments/assets/e0507456-c0a5-4153-b170-76f4d64af7a4" />
+Aqui se aPunta a la direccion de memoria 22, y se almacena en D, luego se apunta a 23, para luego operar D=D-M, que da -2, por lo que se sumara 1 a la posicion del numero sumado del array, para seguir con el siguiente.
+
+
+<img width="1024" height="512" alt="image" src="https://github.com/user-attachments/assets/2c02dea9-1d8f-4667-a2d0-0faa8c8b1e5e" />
+
+
+Resultado final.
+
+
+
+# :memo:Bitácora de proceso de aprendizaje:memo:
+## Actividad 1.
+un punto negro en la esquina superior izquierda de la pantalla.
+``` hack
+@SCREEN      // Cargar la dirección base de la pantalla (16384)
+D=A          // Guardar esa dirección en D
+@punto       // Variable para guardar la dirección
+M=D          // Ahora "punto" apunta a SCREEN
+@32768       // Valor binario: 1000000000000000 (solo el primer bit en 1)
+D=A          // D = 32768
+@punto       // Dirección de memoria donde escribir
+A=M          // A = dirección SCREEN
+M=D          // Escribir 32768 en esa dirección
+
+(END)
+@END
+0;JMP
+```
+
+<img width="512" height="256" alt="image" src="https://github.com/user-attachments/assets/45b4d58c-f7c6-48b9-b4fc-8c065bfd2f92" />
+
+
+## Actividad 2.
+una línea horizontal negra de 16 pixeles de largo en la esquina superior izquierda de la pantalla.
+
+``` hack
+@SCREEN    // Cargar dirección base de pantalla (16384)
+M=-1       // Escribir -1 = 1111111111111111 (todos los bits 1)
+
+(END)
+@END
+0;JMP    
+```
+
+
+<img width="512" height="256" alt="image" src="https://github.com/user-attachments/assets/bae68aff-2bb2-4fc4-8811-5231f46ffe86" />
+
+
+## Actividad 3.
+mover la línea horizontal de derecha a izquierda usando las teclas d y i respectivamente.
+
+``` hack
+@pos
+M=0          // posición inicial = 0
+
+(LOOP)
+// Leer teclado
+@KBD
+D=M
+
+// Si es 'd' (100)
+@100
+D=D-A
+@DERECHA
+D;JEQ
+
+// Si es 'i' (105)
+@KBD
+D=M
+@105
+D=D-A
+@IZQUIERDA
+D;JEQ
+
+@DIBUJAR
+0;JMP
+
+(DERECHA)
+// Guardar posición actual antes de cambiar
+@pos
+D=M
+@pos_anterior
+M=D
+// Mover a la derecha
+@pos
+M=M+1
+@DIBUJAR
+0;JMP
+
+(IZQUIERDA)
+// Guardar posición actual antes de cambiar
+@pos
+D=M
+@pos_anterior
+M=D
+// Mover a la izquierda
+@pos
+M=M-1
+
+(DIBUJAR)
+// BORRAR LA POSICIÓN ANTERIOR
+@SCREEN
+D=A
+@pos_anterior
+D=D+M        // D = SCREEN + pos_anterior
+A=D
+M=0          // borrar esa línea
+
+// DIBUJAR EN NUEVA POSICIÓN
+@SCREEN
+D=A
+@pos
+D=D+M        // D = SCREEN + pos
+A=D
+M=-1         // dibujar línea negra
+
+@LOOP
+0;JMP
+```
+![Grabación 2026-02-13 120005](https://github.com/user-attachments/assets/74e1160e-dc94-4732-acce-5b80a6b1344d)
+
+
+# :bulb:Bitácora de reflexión:bulb:
+
+Muestra el diseño que hiciste en Bitmap Editor:
+<img width="1024" height="512" alt="image" src="https://github.com/user-attachments/assets/21e2fb74-7da7-4ed3-834a-b1a6997341a6" />
+
+
+Incluye el código en ensamblador generado por Bitmap Editor:
+``` hack
+  // put bitmap location value in R12
+	// put code return address in R13
+	@SCREEN
+	D=A
+	@R12
+	AD=D+M
+	// row 8
+	@3840 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// row 9
+	D=A // D holds previous addr
+	@32
+	AD=D+A
+	@6528 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// row 10
+	D=A // D holds previous addr
+	@32
+	AD=D+A
+	@4280 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// row 11
+	D=A // D holds previous addr
+	@32
+	AD=D+A
+	@4294 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// row 12
+	D=A // D holds previous addr
+	@32
+	AD=D+A
+	@28866 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// row 13
+	D=A // D holds previous addr
+	@32
+	AD=D+A
+	@9214 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=A-D // RAM[addr]=-val
+	// row 14
+	D=A // D holds previous addr
+	@32
+	AD=D+A
+	@31994 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=A-D // RAM[addr]=-val
+	AD=A+1 // D holds addr
+	M=1
+	// row 15
+	D=A // D holds previous addr
+	@31
+	AD=D+A
+	@8588 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	AD=A+1 // D holds addr
+	@3 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// row 16
+	D=A // D holds previous addr
+	@31
+	AD=D+A
+	@14531 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	AD=A+1 // D holds addr
+	@6 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// row 17
+	D=A // D holds previous addr
+	@31
+	AD=D+A
+	@14433 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	AD=A+1 // D holds addr
+	@4 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// row 18
+	D=A // D holds previous addr
+	@31
+	AD=D+A
+	@33 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	AD=A+1 // D holds addr
+	@12 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// row 19
+	D=A // D holds previous addr
+	@31
+	AD=D+A
+	@35 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	AD=A+1 // D holds addr
+	@8 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// row 20
+	D=A // D holds previous addr
+	@31
+	AD=D+A
+	@574 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	AD=A+1 // D holds addr
+	@16 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// row 21
+	D=A // D holds previous addr
+	@31
+	AD=D+A
+	@1824 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	AD=A+1 // D holds addr
+	@16 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// row 22
+	D=A // D holds previous addr
+	@31
+	AD=D+A
+	@1824 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	AD=A+1 // D holds addr
+	@32 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// row 23
+	D=A // D holds previous addr
+	@31
+	AD=D+A
+	@32 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	AD=A+1 // D holds addr
+	@44 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// row 24
+	D=A // D holds previous addr
+	@31
+	AD=D+A
+	@16352 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=A-D // RAM[addr]=-val
+	AD=A+1 // D holds addr
+	@108 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// row 25
+	D=A // D holds previous addr
+	@31
+	AD=D+A
+	@8128 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=A-D // RAM[addr]=-val
+	AD=A+1 // D holds addr
+	@64 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// row 26
+	D=A // D holds previous addr
+	@31
+	AD=D+A
+	@15936 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=A-D // RAM[addr]=-val
+	AD=A+1 // D holds addr
+	@64 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// row 27
+	D=A // D holds previous addr
+	@31
+	AD=D+A
+	@3840 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	AD=A+1 // D holds addr
+	@112 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// row 28
+	D=A // D holds previous addr
+	@31
+	AD=D+A
+	@4096 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=A-D // RAM[addr]=-val
+	AD=A+1 // D holds addr
+	@31 // A holds val
+	D=D+A // D = addr + val
+	A=D-A // A=addr + val - val = addr
+	M=D-A // RAM[addr] = val
+	// return
+	@R13
+	A=M
+	D;JMP
+```
+
+Incluye el programa completo en ensamblador que llama a la función generada por Bitmap Editor y que lee las teclas d y e para dibujar y borrar respectivamente el mapa de bits:
+``` hack
+// d = dibuja, e = borra
+
+
+@SCREEN
+D=A
+@R12
+M=D
+
+(LOOP)
+@KBD
+D=M
+@100
+D=D-A
+@DRAW
+D;JEQ
+
+@KBD
+D=M
+@101
+D=D-A
+@ERASE
+D;JEQ
+
+@LOOP
+0;JMP
+
+(DRAW)
+@RET
+D=A
+@R13
+M=D
+@BITMAP
+0;JMP
+(RET)
+@LOOP
+0;JMP
+
+(ERASE)
+@SCREEN
+D=A
+@R12
+M=D
+@32
+D=A
+@R14
+M=D
+(ELOOP)
+@R14
+D=M
+@LOOP
+D;JEQ
+@R12
+A=M
+M=0
+@R12
+M=M+32
+@R14
+M=M-1
+@ELOOP
+0;JMP
+
+
+
+```
+
+
+Construye tu programa PASO A PASO mediante pruebas utilizando el simulador:
+
+   - Paso 1: Prueba de lectura del teclado, primero se verificó el correcto funcionamiento del teclado leyendo el valor de la dirección KBD en el CPU Emulator. Al presionar diferentes teclas se observó que el valor almacenado en KBD cambiaba de acuerdo con el código ASCII correspondiente, confirmando que la entrada del teclado funcionaba correctamente.
+
+Paso 2: Detección de la tecla d
+
+Luego se implementó la comparación del valor leído del teclado con el código ASCII de la tecla d (100). Se comprobó que al presionar esta tecla el programa realizaba el salto correspondiente a la rutina de dibujo, validando la lógica de comparación y salto condicional.
+
+Paso 3: Ejecución de la rutina de dibujo
+
+A continuación se integró la rutina generada por Bitmap Editor. Se configuraron los registros R12 (dirección base de la pantalla) y R13 (dirección de retorno) antes de ejecutar la rutina. Al ejecutar esta parte del programa se verificó que el mapa de bits se dibujaba correctamente en la pantalla.
+
+Paso 4: Detección de la tecla e
+
+Después se agregó la comparación con el código ASCII de la tecla e (101). Se comprobó que al presionar esta tecla el programa saltaba correctamente a la rutina de borrado, sin afectar el funcionamiento del resto del programa.
+
+Paso 5: Implementación de la rutina de borrado
+
+Se implementó una rutina que recorre la misma región de memoria de la pantalla utilizada para dibujar el bitmap y escribe ceros en cada fila. Se utilizó un contador para borrar todas las filas necesarias, verificando visualmente en el Screen Emulator que el dibujo desaparecía por completo.
+
+Paso 6: Integración y prueba final
+
+Finalmente se integraron todas las partes en un ciclo infinito. Se comprobó el funcionamiento completo del programa observando que al presionar la tecla d el bitmap aparece en pantalla y al presionar la tecla e el bitmap se borra correctamente, cumpliendo con los requisitos del ejercicio.
+
+
+Incluye capturas de pantalla donde muestres el resultado final de la aplicación:
+
+
+
+
+
+
+
